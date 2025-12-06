@@ -1,0 +1,382 @@
+/*
+ * Revised styles.css
+ * Focus: Refined glassmorphism, improved spacing, and visual hierarchy.
+ */
+
+:root{
+  /* 🎨 Light Theme Palette */
+  --bg: #f7f9fc; /* Very light background */
+  --surface: #ffffff;
+  --muted: #6c757d; /* Muted text */
+  --text: #212529;
+  --accent: #007bff; /* Primary blue */
+  --accent-2: #00bcd4; /* Secondary cyan */
+  --success: #28a745;
+  --danger: #dc3545;
+
+  /* 🧊 Glassmorphism variables */
+  --glass-bg: rgba(255, 255, 255, 0.7); /* Frosted background */
+  --glass-border: rgba(0, 0, 0, 0.08);
+  --glass-faint: rgba(0, 0, 0, 0.03);
+  
+  /* 📐 Layout & Effects */
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.1);
+  --radius-lg: 16px; /* Larger radius for main containers */
+  --radius-sm: 10px; /* Smaller radius for buttons/inputs */
+  --gap: 20px;
+  --header-h: 80px;
+}
+
+:root[data-theme='dark']{
+  /* 🌑 Dark Theme Palette */
+  --bg: linear-gradient(180deg, #1f2a3a, #141c27 70%); /* Dark gradient background */
+  --surface: rgba(33, 45, 63, 0.8);
+  --muted: #adb5bd;
+  --text: #e9ecef;
+  --accent: #5b9ffc;
+  --accent-2: #34d0e0;
+  --success: #4cd964;
+  --danger: #ff453a;
+
+  /* 🧊 Dark Glassmorphism */
+  --glass-bg: rgba(33, 45, 63, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.06);
+  --glass-faint: rgba(255, 255, 255, 0.02);
+  
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Base Styles */
+*, *::before, *::after {
+    box-sizing: border-box;
+    transition: background-color .3s ease, color .3s ease, border-color .3s ease, box-shadow .3s ease;
+}
+html, body { height: 100%; }
+body{
+  margin:0;
+  font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: var(--bg);
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  display:flex;
+  flex-direction:column;
+  min-height:100vh;
+}
+
+/* Header */
+.app-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:var(--gap);
+  height:var(--header-h);
+  padding: 12px 24px;
+  max-width:1200px;
+  margin: 18px auto 10px;
+  width:calc(100% - 40px);
+  backdrop-filter: blur(8px); /* Stronger blur for header */
+}
+.brand{
+  display:flex;
+  gap:12px;
+  align-items:center;
+}
+.brand .logo svg{ color:var(--accent); }
+.brand h1{ margin:0; font-size:1.25rem; font-weight:700; }
+.brand .tag{ margin:0; font-size:0.85rem; color:var(--muted); font-weight:400; }
+
+/* Controls (Right) */
+.controls{ display:flex; gap:12px; align-items:center; }
+/* .controls select removed since the element is removed from HTML */
+
+/* Buttons */
+.btn{
+  border:0;
+  padding:10px 16px;
+  border-radius:var(--radius-sm);
+  font-weight:600;
+  cursor:pointer;
+  box-shadow:var(--shadow-sm);
+  transition: transform .15s ease, box-shadow .15s ease, opacity .15s;
+  background:var(--surface);
+  color:var(--text);
+}
+.btn.small{ padding:8px 12px; font-size:0.9rem; }
+.btn:hover{ transform:translateY(-2px); box-shadow:var(--shadow-md); }
+.btn:active{ transform:translateY(0); box-shadow:var(--shadow-sm); }
+.btn[disabled]{ opacity:.5; cursor:not-allowed; transform:none; box-shadow:none; }
+
+/* Primary Action Buttons */
+.start-btn, .stop-btn, .add-btn { color: white; border: none; }
+
+.start-btn{
+  background: linear-gradient(45deg, var(--accent), var(--accent-2));
+  box-shadow: 0 6px 15px rgba(0, 123, 255, 0.3);
+}
+.stop-btn{
+  background: linear-gradient(45deg, #ff6b6b, #ff4757);
+  box-shadow: 0 6px 15px rgba(255, 71, 87, 0.3);
+}
+.add-btn{
+  background: linear-gradient(45deg, var(--success), #34d399);
+  box-shadow: 0 6px 15px rgba(40, 167, 69, 0.3);
+}
+
+/* Theme Toggle Switch */
+#themeBtn {
+  /* Override .icon-btn styles to create the toggle track */
+  background-color: var(--surface);
+  border: 1px solid var(--glass-border);
+  width: 52px;
+  height: 28px;
+  border-radius: 14px;
+  padding: 3px;
+  position: relative;
+  transition: background-color 0.3s ease;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+}
+
+#themeBtn:hover {
+  /* Subtle hover for the track */
+  background-color: var(--glass-bg);
+  box-shadow: var(--shadow-sm);
+}
+
+#themeIcon {
+  /* This is now the toggle thumb */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  font-size: 14px;
+  position: absolute;
+  top: 2px;
+  left: 3px;
+  color: #212529; /* Always dark for contrast on the white thumb */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Dark mode styles for the toggle */
+:root[data-theme='dark'] #themeBtn {
+  background-color: var(--accent); /* Change track color in dark mode */
+}
+
+:root[data-theme='dark'] #themeIcon {
+  /* Slide the thumb to the right */
+  transform: translateX(24px);
+}
+
+
+/* Icon Button (Theme Toggle) */
+.icon-btn{
+  background:var(--glass-faint);
+  padding:9px;
+  border-radius:var(--radius-sm);
+  font-size:18px;
+  color:var(--text);
+  border:1px solid var(--glass-border);
+  cursor:pointer;
+  transition: background .15s ease, color .15s ease, box-shadow .15s ease;
+}
+.icon-btn:hover{ background:var(--glass-bg); box-shadow:var(--shadow-sm) }
+
+/* Main Layout */
+.main-cont{
+  display:grid;
+  grid-template-columns: 360px 1fr; /* Slightly wider notes panel */
+  gap:var(--gap);
+  width:calc(100% - 40px);
+  max-width:1200px;
+  margin:10px auto 30px;
+  align-items:start;
+  flex:1 0 auto;
+}
+
+/* Notes Panel (Aside) */
+.notes-panel{
+  width:320px;
+  background:var(--surface);
+  border-right:1px solid var(--glass-border);
+  display:flex;
+  flex-direction:column;
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+}
+.notes-top{ display:flex; gap:12px; align-items:center; justify-content:space-between; }
+.notes-meta{ display:flex; gap:10px; align-items:center; font-size:0.85rem; color:var(--muted) }
+#notesCount{ font-weight:600; color:var(--text); }
+.link-btn{
+    background:transparent;
+    color:var(--accent);
+    border:0;
+    cursor:pointer;
+    font-size:0.85rem;
+    padding:4px 8px;
+    font-weight:600;
+}
+.link-btn:hover{ text-decoration:underline; }
+
+/* Notes List Items (Adjusted from .note-card) */
+.notes-list{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  overflow-y:auto;
+  padding-right:8px;
+  max-height:65vh;
+}
+/* Scrollbar styling for better look */
+.notes-list::-webkit-scrollbar { width: 8px; }
+.notes-list::-webkit-scrollbar-thumb {
+  background: var(--glass-border);
+  border-radius: 4px;
+}
+.notes-list::-webkit-scrollbar-track { background: transparent; }
+
+.note-item{
+  /* New structure for note-item based on script.js */
+  padding:14px;
+  border-radius:var(--radius-sm);
+  background: var(--surface);
+  border:1px solid var(--glass-border);
+  box-shadow: var(--shadow-sm);
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:10px;
+  transition: all .15s ease;
+}
+.note-item:hover{
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+.note-content{ flex-grow:1; }
+.note-time{ font-size:0.75rem; color:var(--muted); margin-bottom:4px; }
+.note-text{ font-size:0.9rem; line-height:1.5; color:var(--text); max-height:4.5em; overflow:hidden; text-overflow:ellipsis; }
+.delete-note-btn{
+    color: var(--danger);
+    background: transparent;
+    border: 1px solid var(--danger);
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    align-self: flex-start;
+    transition: all .15s ease;
+}
+.delete-note-btn:hover{
+    background: var(--danger);
+    color: white;
+}
+
+/* Empty State */
+.notes-empty, .empty-state{ color:var(--muted); font-size:0.9rem; text-align:center; padding:18px 6px }
+
+/* Editor */
+.editor{
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+  min-height:420px;
+  background: var(--glass-bg);
+  padding:var(--gap);
+  border-radius:var(--radius-lg);
+  box-shadow:var(--shadow-md);
+  border:1px solid var(--glass-border);
+  backdrop-filter: blur(10px);
+}
+.editor-top{ display:flex; justify-content:space-between; align-items:center; gap:10px; }
+.status-wrap{ display:flex; flex-direction:column; gap:2px; }
+.status{ font-size:0.95rem; font-weight:600; color:var(--accent) }
+.status.listening{ color:var(--danger); }
+.status.idle{ color:var(--success); }
+.muted{ font-size:0.8rem; color:var(--muted) }
+
+.editor-body{ flex-grow:1; }
+.textArea-cont{
+  width:100%;
+  height:100%; /* Take up all available height in the editor */
+  min-height:58vh;
+  max-height:78vh;
+  resize:vertical;
+  padding:20px;
+  border-radius:var(--radius-sm);
+  border:1px solid var(--glass-border);
+  font-size:1rem;
+  line-height:1.7;
+  background:var(--surface);
+  color:var(--text);
+  outline: none;
+  box-shadow: inset 0 2px 4px var(--glass-faint); /* subtle inset shadow */
+  transition: box-shadow .2s ease, transform .2s ease;
+}
+.textArea-cont:focus{
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2), inset 0 2px 4px var(--glass-faint);
+}
+
+.editor-bottom{ display:flex; justify-content:space-between; align-items:center; gap:12px; color:var(--muted); font-size:0.85rem }
+.timestamps{ font-weight:500; }
+
+/* Footer */
+.app-footer{
+  max-width:1200px;
+  margin: 0 auto 18px;
+  width:calc(100% - 40px);
+  padding:8px 0;
+  text-align:center;
+  color:var(--muted);
+  font-size:0.8rem;
+}
+
+/* Helpers / Keyboard shortcuts */
+.kbd{
+  font-family: 'Inter', system-ui;
+  background: var(--glass-faint);
+  color: var(--text);
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  border: 1px solid var(--glass-border);
+}
+kbd{
+    /* Use the generic kbd for system keys like Ctrl/Alt */
+    background:var(--text);
+    color:var(--surface);
+    padding: 3px 6px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+/* Responsiveness */
+@media (max-width:980px){
+  .main-cont{
+    grid-template-columns: 1fr;
+    width:calc(100% - 30px);
+    gap: 16px;
+  }
+  .notes-panel{ min-height:0; }
+  .notes-list{ max-height:30vh; }
+  .textArea-cont{ min-height:35vh; }
+  .app-header{
+    height:auto;
+    padding:16px;
+    gap:16px;
+    flex-direction:column;
+    align-items:center; /* Center header content on mobile */
+    text-align:center;
+    width:calc(100% - 30px);
+  }
+  .brand{ justify-content:center; }
+  .controls{ flex-wrap:wrap; justify-content:center; }
+  /* .controls select removed from here as well */
+}

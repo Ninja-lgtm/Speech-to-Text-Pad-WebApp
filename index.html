@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Speech Notes — Simple</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="app-header" role="banner">
+    <div class="brand">
+      <div class="logo">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <rect x="2" y="2" width="20" height="20" rx="6" fill="currentColor" opacity=".08"></rect>
+          <path d="M7 12h10M7 8h6M7 16h10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div>
+        <h1>Speech Notes</h1>
+        <p class="tag">Fast, simple transcription</p>
+      </div>
+    </div>
+
+    <div class="controls" role="toolbar" aria-label="Recording controls">
+      <button id="startBtn" class="btn start-btn" aria-pressed="false" title="Start listening">
+        ▶ Start
+      </button>
+      <button id="stopBtn" class="btn stop-btn" aria-pressed="false" title="Stop listening" disabled>
+        ■ Stop
+      </button>
+
+      <button id="saveBtn" class="btn add-btn" title="Save note">
+        ✚ Save
+      </button>
+
+      <div class="theme-toggle" title="Toggle theme" aria-hidden="false">
+        <button id="themeBtn" class="icon-btn" aria-label="Toggle theme">
+          <span id="themeIcon" aria-hidden="true">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-cont" role="main">
+    <aside class="notes-panel" aria-label="Saved notes">
+      <div class="notes-top">
+        <h2>Notes</h2>
+        <div class="notes-meta">
+          <span id="notesCount">0</span>
+          <button id="clearAll" class="link-btn" title="Clear all notes">Clear</button>
+        </div>
+      </div>
+
+      <div class="notes-list" id="notesList" aria-live="polite">
+        </div>
+    </aside>
+
+    <section class="editor" aria-label="Editor">
+      <div class="editor-top">
+        <div class="status-wrap">
+          <div id="status" class="status">Ready to listen</div>
+          <div class="muted">Auto-save enabled</div>
+        </div>
+
+        <div class="editor-actions">
+          <button id="copyBtn" class="btn small">Copy</button>
+          <button id="clearDraft" class="btn small">Clear</button>
+        </div>
+      </div>
+
+      <div class="editor-body">
+        <textarea id="textArea" class="textArea-cont" placeholder="Your transcript appears here..." rows="12" spellcheck="true"></textarea>
+      </div>
+
+      <div class="editor-bottom">
+        <div class="timestamps" id="lastSaved">Last saved: —</div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer" role="contentinfo">
+    <small>For the thoughts that almost got away.</small>
+  </footer>
+
+  <script src="theme-toggle.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
