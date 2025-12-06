@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // --- DOM Elements ---
+    // DOM Elements
     const textArea = document.getElementById('textArea');
     const startBtn = document.getElementById('startBtn');
     const stopBtn = document.getElementById('stopBtn');
@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const lastSaved = document.getElementById('lastSaved');
     const browserWarning = document.getElementById('browserWarning');
 
-    // --- Speech Recognition Setup ---
+    // Speech Recognition Setup
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (!SpeechRecognition) {
         if (browserWarning) {
@@ -29,12 +29,12 @@ document.addEventListener('DOMContentLoaded', () => {
     recognition.interimResults = true;
     recognition.lang = 'en-US';
 
-    // --- State Management ---
+    //State Management
     let isListening = false;
     let userStopped = false; // Flag to differentiate user stop vs. auto stop
     let notes = JSON.parse(localStorage.getItem('speechNotes')) || [];
 
-    // --- Core Functions ---
+    //Core Functions
     function startListening() {
         if (isListening) return;
         try {
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
         recognition.stop();
     }
 
-    // --- UI Update Functions ---
+    // UI Update Functions
     function updateUIForListening(isNowListening) {
         isListening = isNowListening;
         if (status) {
@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
         lastSaved.textContent = `Last saved: ${timestamp}`;
     }
 
-    // --- Speech Recognition Event Handlers ---
+    // Speech Recognition Event Handlers
     recognition.onstart = () => {
         isListening = true;
         updateUIForListening(true);
@@ -195,7 +195,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- Initial Load ---
+    // Initial Load
     renderNotes();
     updateLastSaved();
     updateUIForListening(false);
