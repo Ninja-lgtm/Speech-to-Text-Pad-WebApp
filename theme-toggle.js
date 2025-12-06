@@ -28,7 +28,7 @@
     applyTheme(next);
   }
 
-  // --- Init ---
+  // Init
   // Default to 'light' if no stored theme is found
   const storedTheme = localStorage.getItem('sn_theme') || 'light';
   // Ensure the stored theme is only 'dark' or 'light'

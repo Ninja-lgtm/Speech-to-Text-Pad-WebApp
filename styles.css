@@ -187,7 +187,7 @@ body{
 }
 .icon-btn:hover{ background:var(--glass-bg); box-shadow:var(--shadow-sm) }
 
-/* Main Layout */
+/* Main Layout*/
 .main-cont{
   display:grid;
   grid-template-columns: 360px 1fr; /* Slightly wider notes panel */
@@ -199,7 +199,7 @@ body{
   flex:1 0 auto;
 }
 
-/* Notes Panel (Aside) */
+/* Notes Panel (Aside)*/
 .notes-panel{
   width:320px;
   background:var(--surface);
